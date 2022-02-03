@@ -17,6 +17,7 @@ architecture Behavioral of pong_controller is
 	signal counter                   : integer := 0;
 	constant maximum                 : integer := 125000000;
 	signal current_leds, next_leds   : std_logic_vector(2 downto 0);
+	signal p1Buf, p2Buf              : std_logic;
 
 begin
 
@@ -30,10 +31,18 @@ begin
 				counter       <= 0;
 			else
 				counter <= counter + 1;
+				if (player1 = '1') then
+					p1Buf <= '1';
+				end if;
+				if (player2 = '1') then
+					p2Buf <= '1';
+				end if;
 				if (counter = maximum) then --every second, switch to next state
 					counter       <= 0;
 					current_state <= next_state;
 					current_leds  <= next_leds;
+					p1Buf         <= '0';
+					p2Buf         <= '0';
 				end if;
 			end if;
 		end if;
@@ -54,21 +63,31 @@ begin
 			end if;
 
 		elsif (current_state = "010") then --check for player input on right side
-			next_state <= "011";
-			next_leds  <= "110";
+			if (p1Buf = '1') then
+				next_state <= "011";
+				next_leds  <= "110";
+			else
+				next_state <= "001";
+				next_leds  <= "000";
+			end if;
 
 		elsif (current_state = "011") then --scrolling right to left
 			if (current_leds = "001") then
 				next_state <= "100";
 				next_leds  <= "000"; --move on
 			else
-				next_leds  <= std_logic_vector(unsigned(current_leds) - 1); --scroll LEDs
 				next_state <= "011";
+				next_leds  <= std_logic_vector(unsigned(current_leds) - 1); --scroll LEDs
 			end if;
 
 		elsif (current_state = "100") then --check for player input on left side
-			next_leds  <= "001";
-			next_state <= "001";
+			if (p2Buf  = '1') then
+				next_state <= "001";
+				next_leds  <= "001";
+			else
+				next_state <= "011";
+				next_leds  <= "111";
+			end if;
 
 		end if;
 

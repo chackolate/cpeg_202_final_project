@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="56" Path="D:/Documents/CPEG202/final_project/final_project.xpr">
+<Project Version="7" Minor="56" Path="D:/Documents/CPEG202/cpeg_202_final_project/final_project.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="2c80283c07be43b4b093e7d63bda37b4"/>
