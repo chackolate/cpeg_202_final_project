@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.all;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -14,6 +14,7 @@ entity pong_full is
 	port (
 		clk, reset       : in std_logic;
 		player1, player2 : in std_logic;
+		sw               : in std_logic;
 		led              : out std_logic_vector (7 downto 0);
 		seg              : out std_logic_vector (6 downto 0);
 		cat              : out std_logic);
@@ -25,6 +26,7 @@ architecture Behavioral of pong_full is
 		port (
 			clk              : in std_logic;
 			reset            : in std_logic;
+			sw               : in std_logic;
 			player1, player2 : in std_logic;                      --player inputs
 			state            : out std_logic_vector (3 downto 0); --state value for SSD
 			led              : out std_logic_vector(2 downto 0)); --output state value for SSD
@@ -48,13 +50,15 @@ architecture Behavioral of pong_full is
 
 begin
 
-	notstate <= not state;
+	notstate     <= not state;
 
-	CTRL0 : pong_controller port map(
+	CTRL0 : pong_controller
+	port map(
 		clk     => clk,
 		reset   => reset,
 		player1 => player1,
 		player2 => player2,
+		sw      => sw,
 		state   => state,
 		led     => led_array
 	);
