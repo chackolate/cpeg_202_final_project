@@ -1,6 +1,7 @@
-
-!.gitignore
-*.vhd
-*.xpr
-*.wcfg
-*.xdc
+*
+!*/
+!*.vhd
+!*.xdc
+!*.wfcg
+!*.xpr
+!*.bd

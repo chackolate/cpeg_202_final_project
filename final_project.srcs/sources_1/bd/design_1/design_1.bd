@@ -1,0 +1,298 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x30FA0D145DF6A727",
+      "device": "xc7z010clg400-1",
+      "gen_directory": "../../../../final_project.gen/sources_1/bd/design_1",
+      "name": "design_1",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.2",
+      "validated": "true"
+    },
+    "design_tree": {
+      "leds_0": "",
+      "ssd_0": "",
+      "pong_controller_0": ""
+    },
+    "ports": {
+      "clk": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "ASSOCIATED_RESET": {
+            "value": "reset",
+            "value_src": "default"
+          },
+          "CLK_DOMAIN": {
+            "value": "design_1_clk",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "125000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "reset": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_HIGH"
+          }
+        }
+      },
+      "player1": {
+        "direction": "I"
+      },
+      "player2": {
+        "direction": "I"
+      },
+      "sw": {
+        "direction": "I",
+        "left": "3",
+        "right": "0"
+      },
+      "cat": {
+        "direction": "O"
+      },
+      "seg": {
+        "direction": "O",
+        "left": "6",
+        "right": "0"
+      },
+      "led": {
+        "direction": "O",
+        "left": "7",
+        "right": "0"
+      }
+    },
+    "components": {
+      "leds_0": {
+        "vlnv": "xilinx.com:module_ref:leds:1.0",
+        "xci_name": "design_1_leds_0_0",
+        "xci_path": "ip\\design_1_leds_0_0\\design_1_leds_0_0.xci",
+        "inst_hier_path": "leds_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "leds",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "led_array": {
+            "direction": "I",
+            "left": "2",
+            "right": "0"
+          },
+          "led": {
+            "direction": "O",
+            "left": "7",
+            "right": "0"
+          }
+        }
+      },
+      "ssd_0": {
+        "vlnv": "xilinx.com:module_ref:ssd:1.0",
+        "xci_name": "design_1_ssd_0_0",
+        "xci_path": "ip\\design_1_ssd_0_0\\design_1_ssd_0_0.xci",
+        "inst_hier_path": "ssd_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "ssd",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "125000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_1_clk",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "digit1": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "digit2": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "cat": {
+            "direction": "O"
+          },
+          "seg": {
+            "direction": "O",
+            "left": "6",
+            "right": "0"
+          }
+        }
+      },
+      "pong_controller_0": {
+        "vlnv": "xilinx.com:module_ref:pong_controller:1.0",
+        "xci_name": "design_1_pong_controller_0_0",
+        "xci_path": "ip\\design_1_pong_controller_0_0\\design_1_pong_controller_0_0.xci",
+        "inst_hier_path": "pong_controller_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "pong_controller",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "125000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_1_clk",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_HIGH",
+                "value_src": "user_prop"
+              }
+            }
+          },
+          "player1": {
+            "direction": "I"
+          },
+          "player2": {
+            "direction": "I"
+          },
+          "sw": {
+            "direction": "I",
+            "left": "3",
+            "right": "0"
+          },
+          "state": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "p1Score": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "p2Score": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "led": {
+            "direction": "O",
+            "left": "2",
+            "right": "0"
+          }
+        }
+      }
+    },
+    "nets": {
+      "Net": {
+        "ports": [
+          "clk",
+          "pong_controller_0/clk",
+          "ssd_0/clk"
+        ]
+      },
+      "leds_0_led": {
+        "ports": [
+          "leds_0/led",
+          "led"
+        ]
+      },
+      "player1_1": {
+        "ports": [
+          "player1",
+          "pong_controller_0/player1"
+        ]
+      },
+      "player2_1": {
+        "ports": [
+          "player2",
+          "pong_controller_0/player2"
+        ]
+      },
+      "pong_controller_0_led": {
+        "ports": [
+          "pong_controller_0/led",
+          "leds_0/led_array"
+        ]
+      },
+      "pong_controller_0_p1Score": {
+        "ports": [
+          "pong_controller_0/p1Score",
+          "ssd_0/digit1"
+        ]
+      },
+      "pong_controller_0_p2Score": {
+        "ports": [
+          "pong_controller_0/p2Score",
+          "ssd_0/digit2"
+        ]
+      },
+      "reset_1": {
+        "ports": [
+          "reset",
+          "pong_controller_0/reset"
+        ]
+      },
+      "ssd_0_cat": {
+        "ports": [
+          "ssd_0/cat",
+          "cat"
+        ]
+      },
+      "ssd_0_seg": {
+        "ports": [
+          "ssd_0/seg",
+          "seg"
+        ]
+      },
+      "sw_1": {
+        "ports": [
+          "sw",
+          "pong_controller_0/sw"
+        ]
+      }
+    }
+  }
+}
