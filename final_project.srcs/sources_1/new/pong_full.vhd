@@ -14,7 +14,7 @@ entity pong_full is
 	port (
 		clk, reset       : in std_logic;
 		player1, player2 : in std_logic;
-		sw               : in std_logic;
+		sw               : in std_logic_vector(3 downto 0);
 		led              : out std_logic_vector (7 downto 0);
 		seg              : out std_logic_vector (6 downto 0);
 		cat              : out std_logic);
@@ -26,18 +26,21 @@ architecture Behavioral of pong_full is
 		port (
 			clk              : in std_logic;
 			reset            : in std_logic;
-			sw               : in std_logic;
+			sw               : in std_logic_vector(3 downto 0);
 			player1, player2 : in std_logic;                      --player inputs
 			state            : out std_logic_vector (3 downto 0); --state value for SSD
+			p1Score, p2Score : out integer range 0 to 9 := 0;
 			led              : out std_logic_vector(2 downto 0)); --output state value for SSD
 	end component;
-	signal state, notstate : std_logic_vector(3 downto 0);
-	signal led_array       : std_logic_vector(2 downto 0);
+	signal state, notstate  : std_logic_vector(3 downto 0);
+	signal led_array        : std_logic_vector(2 downto 0);
+	signal p1Score, p2Score : integer range 0 to 9 := 0;
+	signal score1, score2   : std_logic_vector(3 downto 0);
 
 	component ssd is
 		port (
 			clk            : std_logic;
-			digit1, digit2 : in std_logic_vector(3 downto 0);
+			digit1, digit2 : in integer;
 			cat            : out std_logic;
 			seg            : out std_logic_vector (6 downto 0));
 	end component;
@@ -50,7 +53,7 @@ architecture Behavioral of pong_full is
 
 begin
 
-	notstate     <= not state;
+	-- notstate <= not state;
 
 	CTRL0 : pong_controller
 	port map(
@@ -60,13 +63,15 @@ begin
 		player2 => player2,
 		sw      => sw,
 		state   => state,
+		p1Score => p1Score,
+		p2Score => p2Score,
 		led     => led_array
 	);
 
 	SSD0 : ssd port map(
 		clk    => clk,
-		digit1 => state,
-		digit2 => notstate,
+		digit1 => p1Score,
+		digit2 => p2Score,
 		cat    => cat,
 		seg    => seg
 	);

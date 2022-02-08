@@ -33,14 +33,14 @@ entity ssd is
 	port (
 		-- sw             : in std_logic_vector (3 downto 0);
 		clk            : std_logic;
-		digit1, digit2 : in std_logic_vector(3 downto 0);
+		digit1, digit2 : in integer;
 		cat            : out std_logic;
 		seg            : out std_logic_vector (6 downto 0));
 end ssd;
 
 architecture Behavioral of ssd is
 
-	signal sw       : std_logic_vector(3 downto 0);
+	signal sw       : integer;
 	signal catBuf   : std_logic := '0';
 	signal clkCount : natural range 0 to 500000;
 
@@ -67,21 +67,21 @@ begin
 	end process;
 
 	with sw select seg <=
-		"1111110" when "0000",
-		"0110000" when "0001",
-		"1101101" when "0010",
-		"1111001" when "0011",
-		"0110011" when "0100",
-		"1011011" when "0101",
-		"1011111" when "0110",
-		"1110000" when "0111",
-		"1111111" when "1000",
-		"1110011" when "1001",
-		"1110111" when "1010",
-		"0011111" when "1011",
-		"1001110" when "1100",
-		"0111101" when "1101",
-		"1001111" when "1110",
+		"1111110" when 0,
+		"0110000" when 1,
+		"1101101" when 2,
+		"1111001" when 3,
+		"0110011" when 4,
+		"1011011" when 5,
+		"1011111" when 6,
+		"1110000" when 7,
+		"1111111" when 8,
+		"1110011" when 9,
+		"1110111" when 10,
+		"0011111" when 11,
+		"1001110" when 12,
+		"0111101" when 13,
+		"1001111" when 14,
 		"1000111" when others;
 
 end Behavioral;

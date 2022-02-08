@@ -6,29 +6,33 @@ entity pong_controller is
 	port (
 		clk              : in std_logic;
 		reset            : in std_logic;
-		player1, player2 : in std_logic;                      --player inputs
-		sw : in std_logic;
+		player1, player2 : in std_logic; --player inputs
+		sw               : in std_logic_vector(3 downto 0);
 		state            : out std_logic_vector (3 downto 0); --state value for SSD
-		led              : out std_logic_vector(2 downto 0)); --output state value for SSD
+		p1Score, p2Score : out integer range 0 to 9;
+		led              : out std_logic_vector(2 downto 0)); --control for led module
 end pong_controller;
 
 architecture Behavioral of pong_controller is
 
-	signal current_state, next_state : std_logic_vector(2 downto 0);
-	signal counter                   : integer := 0;
+	signal current_state, next_state            : std_logic_vector(2 downto 0);
+	signal counter                              : integer := 0;
 	-- constant maximum                 : integer := 125000000;
-	signal current_leds, next_leds   : std_logic_vector(2 downto 0);
-	signal p1Buf, p2Buf              : std_logic;
-	signal clock_counts              : integer;
-	signal swBuf : std_logic_vector(3 downto 0);
+	signal current_leds, next_leds              : std_logic_vector(2 downto 0);
+	signal p1Buf, p2Buf                         : std_logic;
+	signal clock_counts                         : integer;
+	signal score1, score2, scoreOut1, scoreOut2 : integer range 0 to 20 := 0;
+	-- signal swBuf                              : std_logic_vector(3 downto 0);
 
 begin
 
-    swBuf <= "00" & sw & '0';    
-	clock_counts <= 125000000 / (to_integer(unsigned(swBuf)));
+	-- swBuf        <= sw;
+	clock_counts <= 125000000 / (2 * to_integer(unsigned(sw)));
 
 	state        <= '0' & current_state;
 	led          <= current_leds;
+	p1Score      <= scoreOut1;
+	p2Score      <= scoreOut2;
 
 	clocking : process (clk, reset) begin
 		if (rising_edge(clk)) then
@@ -45,10 +49,12 @@ begin
 				end if;
 				if (counter >= clock_counts) then --every second, switch to next state
 					counter       <= 0;
-					current_state <= next_state;
-					current_leds  <= next_leds;
 					p1Buf         <= '0';
 					p2Buf         <= '0';
+					current_state <= next_state;
+					current_leds  <= next_leds;
+					scoreOut1     <= score1;
+					scoreOut2     <= score2;
 				end if;
 			end if;
 		end if;
@@ -58,6 +64,8 @@ begin
 		if (current_state = "000") then --base reset state
 			next_state <= "001";
 			next_leds  <= "000";
+			score1     <= 0;
+			score2     <= 0;
 
 		elsif (current_state = "001") then --scrolling left to right
 			if (current_leds = "110") then
@@ -73,8 +81,9 @@ begin
 				next_state <= "011";
 				next_leds  <= "110";
 			else
-				next_state <= "001";
+				next_state <= "101"; --move to state 5, increment p2 score
 				next_leds  <= "000";
+
 			end if;
 
 		elsif (current_state = "011") then --scrolling right to left
@@ -91,10 +100,34 @@ begin
 				next_state <= "001";
 				next_leds  <= "001";
 			else
-				next_state <= "011";
+				next_state <= "111"; --move to state 6
 				next_leds  <= "111";
+
 			end if;
 
+		elsif (current_state = "101") then --player 2 score
+			score2     <= scoreOut2 + 1;
+			next_state <= "001";
+			next_leds  <= "000";
+			if (score2 >= 9) then
+				next_state <= "000";
+				next_leds  <= "000";
+			elsif (score2 >= 9) then
+				next_state <= "000";
+				next_leds  <= "000";
+			end if;
+
+		elsif (current_state = "111") then --player 1 score
+			score1     <= scoreOut1 + 1;
+			next_state <= "011";
+			next_leds  <= "111";
+			if (score1 >= 9) then
+				next_state <= "000";
+				next_leds  <= "000";
+			elsif (score1 >= 9) then
+				next_state <= "000";
+				next_leds  <= "000";
+			end if;
 		end if;
 
 	end process;

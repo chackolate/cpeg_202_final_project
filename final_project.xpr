@@ -42,10 +42,10 @@
     <Option Name="SimulatorGccVersionVCS" Val="6.2.0"/>
     <Option Name="SimulatorGccVersionRiviera" Val="6.2.0"/>
     <Option Name="SimulatorGccVersionActiveHdl" Val="6.2.0"/>
-    <Option Name="SimulatorLanguage" Val="Verilog"/>
+    <Option Name="TargetLanguage" Val="VHDL"/>
+    <Option Name="SimulatorLanguage" Val="VHDL"/>
     <Option Name="BoardPart" Val="digilentinc.com:zybo-z7-10:part0:1.0"/>
-    <Option Name="SourceMgmtMode" Val="DisplayOnly"/>
-    <Option Name="ActiveSimSet" Val="pong_states"/>
+    <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
@@ -88,12 +88,6 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/sources_1/new/pong_controller.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/imports/CPEG202/leds.vhd">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../leds.vhd"/>
@@ -102,10 +96,16 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/CPEG202/pong.vhd">
+      <File Path="$PSRCDIR/sources_1/new/pong_controller.vhd">
         <FileInfo>
-          <Attr Name="ImportPath" Val="C:/Users/alext/OneDrive - University of Delaware - o365/CPEG202/pong.vhd"/>
-          <Attr Name="ImportTime" Val="1643054452"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/CPEG202/ssd.vhd">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../ssd.vhd"/>
+          <Attr Name="ImportTime" Val="1643054449"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -116,10 +116,26 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/CPEG202/ssd.vhd">
+      <File Path="$PSRCDIR/sources_1/imports/CPEG202/pong.vhd">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../ssd.vhd"/>
-          <Attr Name="ImportTime" Val="1643054449"/>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="ImportPath" Val="C:/Users/alext/OneDrive - University of Delaware - o365/CPEG202/pong.vhd"/>
+          <Attr Name="ImportTime" Val="1643054452"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/bd/design_1/design_1.bd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PGENDIR/sources_1/bd/design_1/hdl/design_1_wrapper.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -168,16 +184,9 @@
     </FileSet>
     <FileSet Name="pong_states" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/pong_states" RelGenDir="$PGENDIR/pong_states">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/pong_states/new/pong_states_tb.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="pong_states_tb"/>
-        <Option Name="TopLib" Val="xil_defaultlib"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SelectedSimModel" Val="rtl"/>
