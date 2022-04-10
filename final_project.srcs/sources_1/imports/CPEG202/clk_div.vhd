@@ -3,12 +3,10 @@ use IEEE.STD_LOGIC_1164.all;
 
 entity clk_div is
 	port (
-		clk_in           : in std_logic;  -- input clock
-		reset            : in std_logic;  -- asynchronous reset
-		sw               : in std_logic;  -- select signal to control multiplexer between 1hz and 2hz
-		player1, player2 : in std_logic;  --button 1 & 2 for player inputs
-		p1Buf, p2Buf     : out std_logic; --player input buffer for state machine to read
-		clk_out          : out std_logic  -- output clock
+		clk_in  : in std_logic; -- input clock
+		reset   : in std_logic; -- asynchronous reset
+		sw      : in std_logic; -- select signal to control multiplexer between 1hz and 2hz
+		clk_out : out std_logic -- output clock
 	);
 end clk_div;
 
@@ -46,23 +44,6 @@ architecture Behavioral of clk_div is
 	signal clkOutSignal  : std_logic;
 
 begin
-
-	inputs : process (clk_in, clkOutSignal)
-	begin
-		if (rising_edge(clk_in)) then --125 MHz
-			if (reset = '1') then
-				p1Buf <= '0';
-				p2Buf <= '0';
-			elsif (clkOutSignal = '1') then --game clock cycle has ended, reset input buffers
-				p1Buf <= '0';
-				p2Buf <= '0';
-			elsif (player1 = '1') then --fill p1 buffer
-				p1Buf <= '1';
-			elsif (player2 = '1') then --fill p2 buffer
-				p2Buf <= '1';
-			end if;
-		end if;
-	end process;
 
 	-- 1mhz clock divider
 	div_1 : clk1Hz port map(

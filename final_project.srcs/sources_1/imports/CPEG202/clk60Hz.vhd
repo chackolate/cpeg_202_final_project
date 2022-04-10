@@ -39,7 +39,7 @@ end clk60Hz;
 architecture Behavioral of clk60Hz is
 
 	signal temporal : std_logic;
-	signal counter  : integer range 0 to 1000000 := 0;
+	signal counter  : integer range 0 to 2083333 := 0;
 
 begin
 	frequency_divider : process (reset, clk_in) begin

@@ -14,7 +14,7 @@ entity pong_full is
 	port (
 		clk, reset       : in std_logic;
 		player1, player2 : in std_logic;
-		sw               : in std_logic_vector(3 downto 0);
+		sw               : in std_logic_vector;
 		led              : out std_logic_vector (7 downto 0);
 		seg              : out std_logic_vector (6 downto 0);
 		cat              : out std_logic);
