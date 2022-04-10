@@ -17,10 +17,8 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-
-
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_1164.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -32,20 +30,20 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity mux2to1_4bit is
-  Port (
-    I0  : in STD_LOGIC_VECTOR(3 downto 0);
-    I1  : in STD_LOGIC_VECTOR(3 downto 0);
-    sel : in STD_LOGIC;
-    Y   : out STD_LOGIC_VECTOR(3 downto 0)
-   );
+	port (
+		I0  : in std_logic_vector(3 downto 0);
+		I1  : in std_logic_vector(3 downto 0);
+		sel : in std_logic;
+		Y   : out std_logic_vector(3 downto 0)
+	);
 end mux2to1_4bit;
 
 architecture Behavioral of mux2to1_4bit is
 
 begin
 
-with sel select
-    Y <= I0 when '0',
-         I1 when '1',
-         "0000" when others;
+	with sel select
+		Y <= I0 when '0',
+		I1 when '1',
+		"0000" when others;
 end Behavioral;

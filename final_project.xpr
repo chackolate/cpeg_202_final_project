@@ -116,14 +116,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/CPEG202/ssd.vhd">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../ssd.vhd"/>
-          <Attr Name="ImportTime" Val="1643054449"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/imports/CPEG202/mux2to1.vhd">
         <FileInfo>
           <Attr Name="ImportPath" Val="C:/Users/alext/OneDrive - University of Delaware - o365/CPEG202/mux2to1.vhd"/>
@@ -168,6 +160,14 @@
         <FileInfo>
           <Attr Name="ImportPath" Val="C:/Users/alext/OneDrive - University of Delaware - o365/CPEG202/mux2to1_4bit.vhd"/>
           <Attr Name="ImportTime" Val="1649603921"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/CPEG202/ssd.vhd">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="C:/Users/alext/OneDrive - University of Delaware - o365/CPEG202/ssd.vhd"/>
+          <Attr Name="ImportTime" Val="1649610812"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>

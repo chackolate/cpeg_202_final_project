@@ -6,8 +6,8 @@ entity pong_controller is
 	port (
 		clk              : in std_logic;
 		reset            : in std_logic;
-		player1, player2 : in std_logic; --player inputs
-		sw               : in std_logic_vector(3 downto 0);
+		player1, player2 : in std_logic;                      --player inputs
+		-- sw               : in std_logic_vector(3 downto 0);
 		state            : out std_logic_vector (3 downto 0); --state value for SSD
 		p1Score, p2Score : out integer range 0 to 9;
 		led              : out std_logic_vector(2 downto 0)); --control for led module
@@ -28,26 +28,37 @@ architecture Behavioral of pong_controller is
 begin
 
 	-- swBuf        <= sw;
-	clock_counts <= 125000000 / (2 * to_integer(unsigned(sw)));
+	-- clock_counts <= 125000000 / (2 * to_integer(unsigned(sw)));
 
-	state        <= '0' & current_state;
-	led          <= current_leds;
-	p1Score      <= scoreOut1;
-	p2Score      <= scoreOut2;
+	state   <= '0' & current_state;
+	led     <= current_leds;
+	p1Score <= scoreOut1;
+	p2Score <= scoreOut2;
 
 	clocking : process (clk, reset) begin
 		if (rising_edge(clk)) then
 			if (reset = '1') then
 				current_state <= "000";
-				counter       <= 0;
+				-- counter       <= 0;
 			else
-				counter <= counter + 1;
+				p1Buf        <= '0';
+				p2Buf        <= '0';
+				current_leds <= next_leds;
+				if (scoreOut1 > 9 or scoreOut2 > 9) then
+					current_state <= "000";
+					scoreOut1     <= 0;
+					scoreOut2     <= 0;
+				else
+					current_state <= next_state;
+				end if;
+				-- counter <= counter + 1;
 				if (player1 = '1') then
 					p1Buf <= '1';
 				end if;
 				if (player2 = '1') then
 					p2Buf <= '1';
 				end if;
+
 				if (counter >= clock_counts) then --every second, switch to next state
 					counter      <= 0;
 					p1Buf        <= '0';
