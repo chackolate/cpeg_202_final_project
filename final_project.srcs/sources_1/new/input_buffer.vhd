@@ -43,27 +43,25 @@ end input_buffer;
 
 architecture Behavioral of input_buffer is
 
-	signal buffOut : std_logic_vector(2 downto 0) := "000";
+	signal game_clk_d : std_logic;
 
 begin
-
-	p1Buf        <= buffOut(0);
-	p2Buf        <= buffOut(1);
-	resetBuf_out <= buffOut(2);
 
 	clocking : process (clk, game_clk_in, p1, p2, reset_in)
 	begin
 		if (rising_edge(clk)) then
-			if (game_clk_in = '1') then --reset buffers when game clocks
-				buffOut(0) <= '0';
-				buffOut(1) <= '0';
-				buffOut(2) <= '0';
+			game_clk_d <= game_clk_in;
+			if ((game_clk_d /= game_clk_in) and game_clk_in = '1') then --fake rising edge detection (cannot use two rising edge statements in one process)
+				--reset buffers when game clocks
+				p1Buf        <= '0';
+				p2Buf        <= '0';
+				resetBuf_out <= '0';
 			elsif (p1 = '1') then
-				buffOut(0) <= '1';
+				p1Buf <= '1';
 			elsif (p2 = '1') then
-				buffOut(1) <= '1';
+				p2Buf <= '1';
 			elsif (reset_in = '1') then
-				buffOut(2) <= '1';
+				resetBuf_out <= '1';
 			end if;
 		end if;
 	end process;

@@ -9,7 +9,7 @@ entity pong_controller is
 		p1Buf, p2Buf     : in std_logic;                      --player inputs
 		-- sw               : in std_logic_vector(3 downto 0);
 		state            : out std_logic_vector (3 downto 0); --state value for SSD
-		p1Score, p2Score : out integer range 0 to 10;
+		p1Score, p2Score : out std_logic_vector (3 downto 0);
 		led              : out std_logic_vector(2 downto 0)); --control for led module
 end pong_controller;
 
@@ -28,8 +28,8 @@ begin
 
 	state   <= '0' & current_state;
 	led     <= current_leds;
-	p1Score <= scoreOut1;
-	p2Score <= scoreOut2;
+	p1Score <= std_logic_vector(to_unsigned(scoreOut1,p1Score'length));
+	p2Score <= std_logic_vector(to_unsigned(scoreOut2,p2Score'length));
 
 	--process to control OUTPUTS
 	--every case MUST update current_state,current_leds, and both scoreOut signals.
@@ -83,14 +83,14 @@ begin
 			flags <= "00";
 
 		elsif (current_state = "010") then --check for player input on right side
-			-- if (p1Buf = '1') then              --buffered input
-			next_state <= "011";               --move to state 3 if player 1 hit the button in time
-			next_leds  <= "110";               --start leds at 1 less than max so that the animation is smoother
-			-- else
-			-- 	next_state <= "101"; --move to state 5 if player 1 missed the button
-			-- 	next_leds  <= "000"; --no leds
-			-- end if;
-			flags      <= "00";
+			if (p1Buf = '1') then              --buffered input
+				next_state <= "011";               --move to state 3 if player 1 hit the button in time
+				next_leds  <= "110";               --start leds at 1 less than max so that the animation is smoother
+			else
+				next_state <= "101"; --move to state 5 if player 1 missed the button
+				next_leds  <= "000"; --no leds
+			end if;
+			flags <= "00";
 
 		elsif (current_state = "011") then --scrolling right to left
 			if (current_leds = "001") then
@@ -103,14 +103,14 @@ begin
 			flags <= "00";
 
 		elsif (current_state = "100") then --check for player input on left side
-			-- if (p2Buf = '1') then
-			next_state <= "001";
-			next_leds  <= "001";
-			-- else
-			-- 	next_state <= "110"; --move to state 6
-			-- 	next_leds  <= "111";
-			-- end if;
-			flags      <= "00";
+			if (p2Buf = '1') then
+				next_state <= "001";
+				next_leds  <= "001";
+			else
+				next_state <= "110"; --move to state 6
+				next_leds  <= "111";
+			end if;
+			flags <= "00";
 
 		elsif (current_state = "101") then --player 2 score
 			next_state <= "001";

@@ -73,12 +73,12 @@ architecture Behavioral of pong_main is
 			p1Buf, p2Buf     : in std_logic;                      --player inputs
 			-- sw               : in std_logic_vector(3 downto 0);
 			state            : out std_logic_vector (3 downto 0); --state value for SSD
-			p1Score, p2Score : out integer range 0 to 10;
+			p1Score, p2Score : out std_logic_vector (3 downto 0);
 			led              : out std_logic_vector(2 downto 0)); --control for led module
 	end component;
 	signal state            : std_logic_vector(3 downto 0);
 	signal led_array        : std_logic_vector(2 downto 0);
-	signal p1Score, p2Score : integer range 0 to 10;
+	signal p1Score, p2Score : std_logic_vector(3 downto 0);
 
 	component clk60Hz is
 		port (
@@ -149,8 +149,8 @@ begin
 	cat <= display_clk;
 
 	MUX0 : mux2to1_4bit port map(
-		I0  => state,
-		I1  => "0000",
+		I0  => p1Score,
+		I1  => p2Score,
 		sel => display_clk,
 		Y   => ssd_in
 	);
