@@ -133,8 +133,8 @@ begin
 	CTRL0 : pong_controller port map(
 		clk     => game_clk,
 		reset   => resetBuf,
-		p1Buf   => p1Buf,
-		p2Buf   => p2Buf,
+		p1Buf   => '1',
+		p2Buf   => '1',
 		state   => state,
 		p1Score => p1Score,
 		p2Score => p2Score,
@@ -149,8 +149,8 @@ begin
 	cat <= display_clk;
 
 	MUX0 : mux2to1_4bit port map(
-		I0  => p1Score,
-		I1  => p2Score,
+		I0  => state,
+		I1  => "0000",
 		sel => display_clk,
 		Y   => ssd_in
 	);
